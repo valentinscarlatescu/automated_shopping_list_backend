@@ -17,8 +17,8 @@ public class ProductCategoryController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<ProductCategory> findAll() {
-        return service.findAll();
-    }
+    //@GetMapping
+    //public List<ProductCategory> findAll() {
+        //return service.findAll();
+    //}
 }
