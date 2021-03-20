@@ -19,7 +19,7 @@ public class CartController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/carts")
     public List<Cart> findAll() {
         return service.findAll();
     }
