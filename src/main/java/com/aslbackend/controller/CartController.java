@@ -1,7 +1,7 @@
 package com.aslbackend.controller;
 
-import com.aslbackend.data.model.ProductCategory;
-import com.aslbackend.service.ProductCategoryService;
+import com.aslbackend.data.model.Cart;
+import com.aslbackend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class ProductCategoryController {
+public class CartController {
 
-    private final ProductCategoryService service;
+    private final CartService service;
 
     @Autowired
-    public ProductCategoryController(ProductCategoryService service){
+    public CartController(CartService service) {
+
         this.service = service;
     }
 
-    @GetMapping("/product_categories")
-    public List<ProductCategory> findAll() {
+    @GetMapping("/carts")
+    public List<Cart> findAll() {
         return service.findAll();
     }
 }
