@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 public class ProductCategoryController {
+
     private final ProductCategoryService service;
 
     @Autowired
@@ -17,8 +18,8 @@ public class ProductCategoryController {
         this.service = service;
     }
 
-    //@GetMapping
-    //public List<ProductCategory> findAll() {
-        //return service.findAll();
-    //}
+    @GetMapping
+    public List<ProductCategory> findAll() {
+        return service.findAll();
+    }
 }
