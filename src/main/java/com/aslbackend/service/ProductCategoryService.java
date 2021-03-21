@@ -20,4 +20,14 @@ public class ProductCategoryService {
     public List<ProductCategory> findAll() {
         return repository.findAll();
     }
+
+    public void save(ProductCategory category) {
+        repository.save(category);
+    }
+
+    public void deleteById(Long id) {
+        if( repository.existsById(id)){
+            repository.deleteById(id);
+        }
+    }
 }

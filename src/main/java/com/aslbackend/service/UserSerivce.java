@@ -1,5 +1,6 @@
 package com.aslbackend.service;
 
+import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.data.model.User;
 import com.aslbackend.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,16 @@ public class UserSerivce {
 
     public List<User> findAll() {
         return repository.findAll();
+    }
+
+    public void save(User usr) {
+        repository.save(usr);
+    }
+
+    public void deleteById(Long id) {
+        if( repository.existsById(id)){
+            repository.deleteById(id);
+        }
     }
 
 }
