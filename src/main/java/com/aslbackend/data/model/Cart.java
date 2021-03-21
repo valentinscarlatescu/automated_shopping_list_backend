@@ -13,11 +13,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cart_product",
-            joinColumns = @JoinColumn(name="cart_id"),
+            joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> cartProducts;
     @CreationTimestamp
