@@ -1,7 +1,7 @@
 package com.aslbackend.service;
 
 import com.aslbackend.data.model.Product;
-import com.aslbackend.data.model.User;
+import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.data.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,12 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final ProductCategoryService productCategoryService;
 
     @Autowired
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ProductCategoryService productCategoryService) {
         this.repository = repository;
+        this.productCategoryService = productCategoryService;
     }
 
     public List<Product> findAll() {
@@ -29,5 +31,10 @@ public class ProductService {
         if( repository.existsById(id)){
             repository.deleteById(id);
         }
+    }
+
+    public List<Product> findByCategoryId(Long productCategoryId){
+        ProductCategory productCategory = productCategoryService.findById(productCategoryId);
+        return repository.findByProductCategory(productCategory);
     }
 }

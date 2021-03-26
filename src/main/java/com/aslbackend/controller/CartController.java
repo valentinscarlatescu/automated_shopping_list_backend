@@ -1,10 +1,10 @@
 package com.aslbackend.controller;
 
 import com.aslbackend.data.model.Cart;
+import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +22,15 @@ public class CartController {
     @GetMapping("/carts")
     public List<Cart> findAll() {
         return service.findAll();
+    }
+
+    @PostMapping("/carts")
+    public void save(@RequestBody Cart cart){
+        service.save(cart);
+    }
+
+    @DeleteMapping("/carts/{id}")
+    public void deleteById(@PathVariable("id") Long id){
+        service.deleteById(id);
     }
 }

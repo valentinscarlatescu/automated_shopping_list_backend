@@ -32,4 +32,9 @@ public class ProductController {
     public void deleteById(@PathVariable("id") Long id){
         service.deleteById(id);
     }
+
+    @GetMapping("/products/byCategory")
+    public List<Product> findByCategoryId(@RequestParam("categoryId") Long productCategoryId) {
+        return service.findByCategoryId(productCategoryId);
+    }
 }
