@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -22,6 +23,9 @@ public class User {
     @CreationTimestamp
     private LocalDateTime joinDateTime;
     private String imagePath;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Cart> carts;
 
     public Long getId() {
         return id;
@@ -85,5 +89,13 @@ public class User {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
     }
 }

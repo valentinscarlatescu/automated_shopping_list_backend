@@ -17,6 +17,11 @@ public class ProductCategoryService {
         this.repository = repository;
     }
 
+    public ProductCategory findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Product category not found"));
+    }
+
     public List<ProductCategory> findAll() {
         return repository.findAll();
     }
