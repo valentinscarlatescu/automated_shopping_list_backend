@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    private final UserSerivce userSerivce;
+    private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthService(UserSerivce userSerivce, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
-        this.userSerivce = userSerivce;
+    public AuthService(UserService userService, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
@@ -30,7 +30,7 @@ public class AuthService {
         String password = body.getPassword();
         String confirmPassword = body.getConfirmPassword();
 
-        boolean isEmail = userSerivce.existsByEmail(email);
+        boolean isEmail = userService.existsByEmail(email);
         if (isEmail) {
             throw new IllegalArgumentException("Email " + email + " already exists");
         }
@@ -39,7 +39,7 @@ public class AuthService {
         }
         User user = new User(email, passwordEncoder.encode(password));
 
-        return userSerivce.save(user);
+        return userService.save(user);
     }
 
     public User login(LoginBody body) {
@@ -52,7 +52,7 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return userSerivce.findByEmail(email);
+        return userService.findByEmail(email);
     }
 
     public void logout() {
