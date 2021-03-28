@@ -1,8 +1,7 @@
 package com.aslbackend.controller;
 
-import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.data.model.User;
-import com.aslbackend.service.UserSerivce;
+import com.aslbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +10,10 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final UserSerivce service;
+    private final UserService service;
 
     @Autowired
-    public UserController(UserSerivce service) {
+    public UserController(UserService service) {
 
         this.service = service;
     }
