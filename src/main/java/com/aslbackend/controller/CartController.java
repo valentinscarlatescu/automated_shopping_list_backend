@@ -1,6 +1,7 @@
 package com.aslbackend.controller;
 
 import com.aslbackend.data.model.Cart;
+import com.aslbackend.data.model.Product;
 import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class CartController {
     @DeleteMapping("/carts/{id}")
     public void deleteById(@PathVariable("id") Long id){
         service.deleteById(id);
+    }
+
+    @GetMapping("/carts/byUser")
+    public List<Cart> findByUserId(@RequestParam("userId") Long userId) {
+        return service.findByUserId(userId);
     }
 }
