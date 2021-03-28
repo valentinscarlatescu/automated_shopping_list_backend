@@ -36,6 +36,11 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public User findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NullPointerException("User not found"));
+    }
+
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
     }
