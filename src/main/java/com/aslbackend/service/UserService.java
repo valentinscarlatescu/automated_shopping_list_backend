@@ -30,6 +30,17 @@ public class UserService implements UserDetailsService {
         return repository.save(user);
     }
 
+    public User updateById(User user, Long id) {
+
+        User dbObj = findById(id);
+        dbObj.setFirstName(user.getFirstName());
+        dbObj.setLastName(user.getLastName());
+        dbObj.setImagePath(user.getImagePath());
+        dbObj.setGender(user.getGender());
+
+        return repository.save(dbObj);
+    }
+
     public void deleteById(Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
