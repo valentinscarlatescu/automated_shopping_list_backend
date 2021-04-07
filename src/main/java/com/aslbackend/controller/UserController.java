@@ -3,7 +3,6 @@ package com.aslbackend.controller;
 import com.aslbackend.data.model.User;
 import com.aslbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User save(@RequestBody User user){
+    public User save(@RequestBody User user) {
         return service.save(user);
     }
 
@@ -39,14 +38,14 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<User> updateProfile(@Valid @RequestBody User user) {
+    public User updateProfile(@Valid @RequestBody User user) {
         User principal =
                 (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok(service.updateById(user, user.getId()));
+        return service.updateById(user, principal.getId());
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteById(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
     }
 

@@ -3,6 +3,7 @@ package com.aslbackend.data.model;
 import com.aslbackend.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,6 +30,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Cart> carts;
+
+    @Formula("(SELECT COUNT(c.id) FROM cart c WHERE c.user_id = id)")
+    private int cartsNumber;
 
     public User() {
 
@@ -145,5 +149,13 @@ public class User implements UserDetails {
 
     public void setCarts(Set<Cart> carts) {
         this.carts = carts;
+    }
+
+    public int getCartsNumber() {
+        return cartsNumber;
+    }
+
+    public void setCartsNumber(int cartsNumber) {
+        this.cartsNumber = cartsNumber;
     }
 }
