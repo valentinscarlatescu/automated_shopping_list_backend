@@ -35,7 +35,7 @@ public class CartController {
         service.deleteById(id);
     }
 
-    @GetMapping("/carts/byUser")
+    @GetMapping(value = "/carts", params = "userId")
     public List<Cart> findByUserId(@RequestParam("userId") Long userId) {
         return service.findByUserId(userId);
     }

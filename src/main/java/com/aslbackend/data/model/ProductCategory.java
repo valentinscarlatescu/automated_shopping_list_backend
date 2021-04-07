@@ -9,7 +9,7 @@ import java.util.Set;
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String name;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,
@@ -19,11 +19,11 @@ public class ProductCategory {
     private String imagePath;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
