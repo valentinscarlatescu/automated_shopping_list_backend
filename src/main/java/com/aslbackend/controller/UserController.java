@@ -31,11 +31,18 @@ public class UserController {
         return service.save(user);
     }
 
+    @GetMapping("/profile")
+    public User getProfile() {
+        User principal =
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return service.findById(principal.getId());
+    }
+
     @PutMapping("/profile")
     public ResponseEntity<User> updateProfile(@Valid @RequestBody User user) {
         User principal =
                 (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok(service.updateById(user, principal.getId()));
+        return ResponseEntity.ok(service.updateById(user, user.getId()));
     }
 
     @DeleteMapping("/users/{id}")

@@ -2,6 +2,7 @@ package com.aslbackend.controller;
 
 import com.aslbackend.controller.request.LoginBody;
 import com.aslbackend.controller.request.RegisterBody;
+import com.aslbackend.data.model.Token;
 import com.aslbackend.data.model.User;
 import com.aslbackend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public User login(@RequestBody LoginBody body) {
+    public Token login(@RequestBody LoginBody body) {
         return service.login(body);
     }
 

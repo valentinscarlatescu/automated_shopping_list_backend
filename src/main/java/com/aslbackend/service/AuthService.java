@@ -2,7 +2,9 @@ package com.aslbackend.service;
 
 import com.aslbackend.controller.request.LoginBody;
 import com.aslbackend.controller.request.RegisterBody;
+import com.aslbackend.data.model.Token;
 import com.aslbackend.data.model.User;
+import com.aslbackend.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,12 +19,14 @@ public class AuthService {
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public AuthService(UserService userService, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public AuthService(UserService userService, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     public User register(RegisterBody body) {
@@ -42,7 +46,7 @@ public class AuthService {
         return userService.save(user);
     }
 
-    public User login(LoginBody body) {
+    public Token login(LoginBody body) {
         String email = body.getEmail();
         String password = body.getPassword();
 
@@ -52,7 +56,7 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return userService.findByEmail(email);
+        return new Token(jwtTokenProvider.createToken(email));
     }
 
     public void logout() {
