@@ -3,6 +3,7 @@ package com.aslbackend.data.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class ProductCategory {
     @OneToMany(cascade = CascadeType.ALL,
                fetch = FetchType.LAZY,
                mappedBy = "productCategory")
-    private Set<Product> products;
+    private List<Product> products;
     private String imagePath;
 
     public Long getId() {
@@ -34,11 +35,11 @@ public class ProductCategory {
         this.name = name;
     }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

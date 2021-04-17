@@ -1,9 +1,9 @@
 package com.aslbackend.service;
 
-import com.aslbackend.data.model.ProductCategory;
 import com.aslbackend.data.model.User;
 import com.aslbackend.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> findAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "firstName", "lastName"));
     }
 
     public User save(User user) {

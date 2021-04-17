@@ -35,6 +35,6 @@ public class CartService {
 
     public List<Cart> findByUserId(Long userId){
         User user = userService.findById(userId);
-        return repository.findByUser(user);
+        return repository.findByUserOrderByDateTimeDesc(user);
     }
 }

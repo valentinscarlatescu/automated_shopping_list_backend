@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,7 +30,7 @@ public class User implements UserDetails {
     private String imagePath;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private Set<Cart> carts;
+    private List<Cart> carts;
 
     @Formula("(SELECT COUNT(c.id) FROM cart c WHERE c.user_id = id)")
     private int cartsNumber;
@@ -143,11 +144,11 @@ public class User implements UserDetails {
         this.imagePath = imagePath;
     }
 
-    public Set<Cart> getCarts() {
+    public List<Cart> getCarts() {
         return carts;
     }
 
-    public void setCarts(Set<Cart> carts) {
+    public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
 

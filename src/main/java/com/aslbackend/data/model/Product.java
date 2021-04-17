@@ -1,9 +1,11 @@
 package com.aslbackend.data.model;
 
+import com.aslbackend.enums.QuantityType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -17,8 +19,13 @@ public class Product {
     private Integer averagePrice;
     @JsonIgnore
     @ManyToMany(mappedBy = "cartProducts")
-    private Set<Cart> carts;
+    private List<Cart> carts;
+    @Enumerated(EnumType.STRING)
+    private QuantityType quantityType;
     private String imagePath;
+
+    @Formula("(SELECT COUNT(cp.product_id) FROM cart_product cp WHERE cp.product_id = id)")
+    private int cartsNumber;
 
     public Long getId() {
         return id;
@@ -44,11 +51,11 @@ public class Product {
         this.name = name;
     }
 
-    public Set<Cart> getCarts() {
+    public List<Cart> getCarts() {
         return carts;
     }
 
-    public void setCarts(Set<Cart> cartSet) {
+    public void setCarts(List<Cart> cartSet) {
         this.carts = cartSet;
     }
 
@@ -66,5 +73,21 @@ public class Product {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public QuantityType getQuantityType() {
+        return quantityType;
+    }
+
+    public void setQuantityType(QuantityType quantityType) {
+        this.quantityType = quantityType;
+    }
+
+    public int getCartsNumber() {
+        return cartsNumber;
+    }
+
+    public void setCartsNumber(int cartsNumber) {
+        this.cartsNumber = cartsNumber;
     }
 }

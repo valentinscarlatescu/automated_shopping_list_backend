@@ -1,9 +1,11 @@
 package com.aslbackend.data.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,10 +21,12 @@ public class Cart {
     @JoinTable(name = "cart_product",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> cartProducts;
+    private List<Product> cartProducts;
     @CreationTimestamp
     private LocalDateTime dateTime;
-    private Long quantity;
+
+    @Formula("(SELECT COUNT(cp.product_id) FROM cart_product cp WHERE cp.cart_id = id)")
+    private int productsNumber;
 
     public Long getId() {
         return id;
@@ -40,11 +44,11 @@ public class Cart {
         this.user = user;
     }
 
-    public Set<Product> getCartProducts() {
+    public List<Product> getCartProducts() {
         return cartProducts;
     }
 
-    public void setCartProducts(Set<Product> cartProducts) {
+    public void setCartProducts(List<Product> cartProducts) {
         this.cartProducts = cartProducts;
     }
 
@@ -56,11 +60,11 @@ public class Cart {
         this.dateTime = dateTime;
     }
 
-    public Long getQuantity() {
-        return quantity;
+    public int getProductsNumber() {
+        return productsNumber;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public void setProductsNumber(int productsNumber) {
+        this.productsNumber = productsNumber;
     }
 }
