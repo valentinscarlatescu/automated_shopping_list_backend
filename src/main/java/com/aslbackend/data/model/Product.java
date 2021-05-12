@@ -2,6 +2,7 @@ package com.aslbackend.data.model;
 
 import com.aslbackend.enums.QuantityType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;

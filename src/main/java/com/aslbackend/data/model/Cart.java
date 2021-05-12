@@ -22,7 +22,7 @@ public class Cart {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> cartProducts;
-    //@CreationTimestamp
+    @CreationTimestamp
     private LocalDateTime dateTime;
 
     @Formula("(SELECT COUNT(cp.product_id) FROM cart_product cp WHERE cp.cart_id = id)")

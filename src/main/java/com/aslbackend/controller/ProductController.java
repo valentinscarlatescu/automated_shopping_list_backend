@@ -1,7 +1,8 @@
 package com.aslbackend.controller;
 
 import com.aslbackend.data.model.Product;
-import com.aslbackend.data.model.User;
+import com.aslbackend.data.model.ProductCount;
+import com.aslbackend.data.repository.ProductRepository;
 import com.aslbackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class ProductController {
     private final ProductService service;
 
     @Autowired
-    public ProductController (ProductService service){
+    public ProductController(ProductService service){
         this.service = service;
     }
 
@@ -37,4 +38,10 @@ public class ProductController {
     public List<Product> findByCategoryId(@RequestParam("categoryId") Long productCategoryId) {
         return service.findByCategoryId(productCategoryId);
     }
+
+    @GetMapping("/products/mostPopular")
+    public List<ProductCount> getMostPopularProducts() {
+        return service.findMostPopularProducts();
+    }
+
 }
