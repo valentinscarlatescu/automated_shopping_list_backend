@@ -1,4 +1,4 @@
-package com.aslbackend;
+package com.aslbackend.util;
 
 import com.aslbackend.data.model.Cart;
 import com.aslbackend.data.model.Product;
