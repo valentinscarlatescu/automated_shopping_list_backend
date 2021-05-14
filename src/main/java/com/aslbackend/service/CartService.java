@@ -37,4 +37,8 @@ public class CartService {
         User user = userService.findById(userId);
         return repository.findByUserOrderByDateTimeDesc(user);
     }
+
+    public long count() {
+        return repository.count();
+    }
 }

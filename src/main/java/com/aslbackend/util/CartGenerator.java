@@ -35,7 +35,7 @@ public class CartGenerator {
         List<Cart> carts = new ArrayList<>();
         for (User user : users) {
             Random rand = new Random();
-            int cartsNumber = rand.nextInt(20);
+            int cartsNumber = rand.nextInt(30);
 
 
             for (int i = 0; i < cartsNumber; i++) {
@@ -48,7 +48,7 @@ public class CartGenerator {
                 date = date.plusMinutes(rand.nextInt(60));
                 cart.setDateTime(date);
 
-                int productsNumber = rand.nextInt(12) + 2;
+                int productsNumber = rand.nextInt(10) + 2;
                 List<Product> cartProducts = new ArrayList<>();
                 for (int j = 0; j < productsNumber; j++) {
                     boolean isInList = false;

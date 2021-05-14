@@ -1,8 +1,6 @@
 package com.aslbackend.controller;
 
 import com.aslbackend.data.model.Product;
-import com.aslbackend.data.model.ProductCount;
-import com.aslbackend.data.repository.ProductRepository;
 import com.aslbackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +13,22 @@ public class ProductController {
     private final ProductService service;
 
     @Autowired
-    public ProductController(ProductService service){
+    public ProductController(ProductService service) {
         this.service = service;
     }
 
     @GetMapping("/products")
-    public List<Product> findAll(){
+    public List<Product> findAll() {
         return service.findAll();
     }
 
     @PostMapping("/products")
-    public void save(@RequestBody Product product){
+    public void save(@RequestBody Product product) {
         service.save(product);
     }
 
     @DeleteMapping("/products/{id}")
-    public void deleteById(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
     }
 
@@ -40,8 +38,13 @@ public class ProductController {
     }
 
     @GetMapping("/products/mostPopular")
-    public List<ProductCount> getMostPopularProducts() {
-        return service.findMostPopularProducts();
+    public List<Product> getMostPopularProducts(@RequestParam("minPercentage") Integer minPercentage) {
+        return service.findMostPopularProducts(minPercentage);
+    }
+
+    @GetMapping("/products/recommendations")
+    public List<Product> getRecommendations(@RequestParam("productsIds") List<Long> productsIds) {
+        return service.findRecommendations(productsIds);
     }
 
 }

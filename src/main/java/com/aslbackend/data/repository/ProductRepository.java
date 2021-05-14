@@ -2,7 +2,6 @@ package com.aslbackend.data.repository;
 
 import com.aslbackend.data.model.Product;
 import com.aslbackend.data.model.ProductCategory;
-import com.aslbackend.data.model.ProductCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,11 +10,24 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
     List<Product> findByProductCategory(ProductCategory productCategory);
 
-    @SuppressWarnings("JpaQlInspection")
-    @Query(value = "SELECT new com.aslbackend.data.model.ProductCount(cp, count (cp)) " +
-            "FROM Cart c LEFT JOIN c.cartProducts cp GROUP BY cp.id ORDER BY count (cp.id) DESC, cp.name ASC")
-    List<ProductCount> findMostPopularProducts();
+    @Query(value = "select cp.cart_id cartId, cp.product_id productId from cart_product cp " +
+            "right join product p on cp.product_id = p.id " +
+            "where cp.cart_id in " +
+            "(select cart_id from cart_product where product_id in (?1) " +
+            "group by cart_id " +
+            "having count(distinct product_id) = ?2)", nativeQuery = true)
+    List<ProductCartProjection> findRecommendations(List<Long> ids, int length);
+
+    List<Product> findByIdIn(List<Long> ids);
+
+
+    interface ProductCartProjection {
+        Long getCartId();
+
+        Long getProductId();
+    }
 
 }

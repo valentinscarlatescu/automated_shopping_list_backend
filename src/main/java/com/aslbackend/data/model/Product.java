@@ -28,6 +28,15 @@ public class Product {
     @Formula("(SELECT COUNT(cp.product_id) FROM cart_product cp WHERE cp.product_id = id)")
     private int cartsNumber;
 
+    @Formula("(SELECT (COUNT(cp.product_id) * 100 / (SELECT COUNT(*) FROM cart)) FROM cart_product cp WHERE cp.product_id = id)")
+    private float percentage;
+
+    @Transient
+    private int commonCartsNumber;
+
+    @Transient
+    private int commonPercentage;
+
     public Long getId() {
         return id;
     }
@@ -90,5 +99,29 @@ public class Product {
 
     public void setCartsNumber(int cartsNumber) {
         this.cartsNumber = cartsNumber;
+    }
+
+    public float getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(float percentage) {
+        this.percentage = percentage;
+    }
+
+    public int getCommonCartsNumber() {
+        return commonCartsNumber;
+    }
+
+    public void setCommonCartsNumber(int commonCartsNumber) {
+        this.commonCartsNumber = commonCartsNumber;
+    }
+
+    public int getCommonPercentage() {
+        return commonPercentage;
+    }
+
+    public void setCommonPercentage(int commonPercentage) {
+        this.commonPercentage = commonPercentage;
     }
 }

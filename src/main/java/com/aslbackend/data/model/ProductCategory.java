@@ -1,6 +1,7 @@
 package com.aslbackend.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,9 @@ public class ProductCategory {
                mappedBy = "productCategory")
     private List<Product> products;
     private String imagePath;
+
+    @Formula("(SELECT COUNT(p.id) FROM product p WHERE p.product_category_id = id)")
+    private int productsNumber;
 
     public Long getId() {
         return id;
@@ -49,5 +53,13 @@ public class ProductCategory {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public int getProductsNumber() {
+        return productsNumber;
+    }
+
+    public void setProductsNumber(int productsNumber) {
+        this.productsNumber = productsNumber;
     }
 }

@@ -17,17 +17,17 @@ public class ProductCategoryController {
         this.service = service;
     }
 
-    @GetMapping("/product_categories")
+    @GetMapping("/productCategories")
     public List<ProductCategory> findAll() {
         return service.findAll();
     }
 
-    @PostMapping("/product_categories")
+    @PostMapping("/productCategories")
     public void save(@RequestBody ProductCategory category){
         service.save(category);
     }
 
-    @DeleteMapping("/product_categories/{id}")
+    @DeleteMapping("/productCategories/{id}")
     public void deleteById(@PathVariable("id") Long id){
         service.deleteById(id);
     }
